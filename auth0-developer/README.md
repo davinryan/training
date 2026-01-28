@@ -5,3 +5,4 @@
   * Development Onboarding - https://learning.okta.com/page/development
   * Development Series 1 - https://learning.okta.com/page/development-2
 * Study Guide - https://certification.okta.com/page/developer-auth0-exam-study-guide
+  * Courses - https://learning.okta.com/page/courses-all
