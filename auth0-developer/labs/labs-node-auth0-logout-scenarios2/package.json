@@ -1,0 +1,50 @@
+{
+  "name": "labs-node-customize-the-login-experience",
+  "version": "1.1.2",
+  "description": "An auth0 training lab template",
+  "license": "MIT",
+  "author": "Auth0",
+  "bugs": {
+    "url": "https://github.com/auth0-training/labs-node-customize-the-login-experience/issues"
+  },
+  "homepage": "https://github.com/auth0-training/labs-node-customize-the-login-experience#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auth0-training/labs-node-customize-the-login-experience.git"
+  },
+  "scripts": {
+    "init": "concurrently \"npm:init:dependencies\"",
+    "init:dependencies": "concurrently \"npm:web-app:dependencies\" \"npm:web-app-b:dependencies\"",
+    "web-app:start": "npm start --prefix ./src/web-app",
+    "web-app:dependencies": "npm install --prefix ./src/web-app",
+    "web-app-b:start": "npm start --prefix ./src/web-app-b",
+    "web-app-b:dependencies": "npm install --prefix ./src/web-app-b"
+  },
+  "keywords": [
+    "auth0",
+    "oauth2",
+    "openid",
+    "oidc",
+    "auth",
+    "authentication",
+    "samples",
+    "labs"
+  ],
+  "dependencies": {
+    "concurrently": "^7.3.0",
+    "eslint": "^9.15.0",
+    "prettier": "^2.7.1"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "singleQuote": true,
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "endOfLine": "auto",
+    "quoteProps": "consistent",
+    "semi": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  }
+}

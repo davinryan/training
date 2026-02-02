@@ -1,0 +1,51 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "3 - Explore Backchannel Logout",
+  "steps": [
+    {
+      "file": "",
+      "line": 1,
+      "description": "## What you'll learn\n\nThe logout scenarios analyzed so far assume that there is a single application and that the user logs out of that application. What happens when multiple applications are involved in the same authenticated session? In this scenario, we'll explore Global logout with Auth0's implementation of [OIDC Back-channel Logout](https://auth0.com/docs/authenticate/login/logout/back-channel-logout). Back-channel Logout is used when a regular web application communicates the termination of the application session to the identity provider (IdP) using the session ID (sid) included in ID tokens and Logout tokens. \n\nAuth0 currently supports Back-channel Logout for all tenants on an enterprise subscription.\n\nIn this lab, we'll cover how to achieve Back-channel Logout with the Auth0 `express-openid-connect` library.\n\n",
+      "selection": {
+        "start": {
+          "line": 12,
+          "character": 77
+        },
+        "end": {
+          "line": 13,
+          "character": 81
+        }
+      }
+    },
+    {
+      "title": "Configure connections",
+      "description": "## Configure connections\n\nWe're going to set up both our web applications so they only use Auth0 as an identity provider.\n\n1. From your Auth0 Management Dashboard, go to **Applications** > **Applications**.\n2. Select **Lab: Web App A**.\n3. Select the **Connections** tab.\n4. Disable all connections except for **User-PasswordAuthentication**.\n5. Repeat these steps for **Lab: Web App B**.\n\n>Note: Back-channel Logout also works when a third-party IdP is involved, but we're going to use Auth0 as an IdP to simplify the example."
+    },
+    {
+      "title": "Launch the web app",
+      "description": "## Launch the web apps\n\nYour apps should still be running and have their ports set to public. But in case you've closed out of them, you can follow the steps below:\n\n1. Select [this link](command:workbench.action.debug.start) to start the applications. \n> This will launch Web App A on port 37500 and Web App B on port 37501. We will only be using BOTH apps in this section.\n1. Select the **PORTS** tab in this workspace.\n1. Right click on Port 37500 (Web App A) and select **Port visibility** > **Public**.\n1. Repeat this step for Port 37501 (Web App B).\n"
+    },
+    {
+      "title": "Sign in to Web App B (Sales)",
+      "description": "## Sign in to Web App B (Sales)\n1. From this workspace, go to the **PORTS** tab.\n1. Locate **Port 37501** (Web App B) and hover over its **Forwarded Address**.\n1. Select the globe icon to open the app in a new tab (we assume you are using the Chrome browser for this lab).\n1. From Web App B (Sales), select the **Login** link.\n1. Use the same username and password you used when you signed up for Web App A using the **Username-Password-Authentication** connection. You can do this since the two apps share the same connection.\n> You are now signed in!"
+    },
+    {
+      "title": "Sign in to Web App A (Expenses)",
+      "description": "## Sign in to Web App A (Sales)\n\n1. From this workspace, go to the **PORTS** tab.\n1. Locate **Port 37500** (Web App A) and hover over its **Forwarded Address**.\n1. Select the globe icon to open the app in a new tab (we assume you are using the Chrome browser for this lab).\n1. Select the **Login** link.\n\n> Notice you are logged in to Web App A without having to provide your credentials again because both apps use the same connection from the same tenant. Thanks, [SSO](https://auth0.com/docs/authenticate/single-sign-on)!"
+    },
+    {
+      "title": "Log out of the app",
+      "description": "## Log out of Web App A (Expenses)\n\n1. Log out of Web App A (Expenses) by selecting the **Logout** button.\n1. Switch tabs to Web App B (Sales).\n1. Pause and think about this question: Are you still logged in to Web App B?\n1. Refresh the Web App B (Sales) page. \n\n\n> Although you logged out of Web App A (Expenses) and have the `oidcLogout` parameter set to `true` in your `auth` middleware, your application session for Web App B (Sales) is still open as the session cookie is still valid. In order for Global logout to occur, Web App B will need a signal that the Auth0 session has been closed and that the cookie should be invalidated. \n"
+    },
+    {
+      "title": "Visualize the Back-channel logout process",
+      "description": "## Visualize the Back-channel Logout process\n\nAuth0 supports Back-channel Logout, and it's easily implemented using `express-openid-connect`; however, it requires an Enterprise subscription to set up. Because of this, we won't implement Back-channel Logout in this lab, but we will summarize how it works and point you in the right direction if you need to implement it for your Enterprise tenant.\n\nIn the diagram below, you can see a reference to a **logout callback** for both applications. When you use `express-openid-connect` and [configure the `auth` middleware for Back-channel Logout](https://github.com/auth0/express-openid-connect/blob/master/EXAMPLES.md#11-back-channel-logout), it creates a Back-channel Logout endpoint in your application at `/backchannel-logout`. You will need to go to your Auth0 Management Dashboard and register this endpoint in the **OpenID Connect Back-Channel Logout** field in your application's settings. \n\nDuring Back-channel Logout, when Auth0 receives a logout request from one application (for example, Web App A), the Auth0 session is ended and Auth0 makes calls to the registered `/backchannel-logout` endpoints of all applications with active sessions. These requests contain a Logout Token with a `sid` (session ID) that should match the application's session. Once each application validates the Logout Token it was sent, its application session is closed.\n\n![](https://articulateusercontent.com/rise/courses/m4UUeRe4DW9ESHbXWK95w3hEhOwIX7uX/IebQ1Di7r78DmZqh.png)"
+    },
+    {
+      "file": "README.md",
+      "line": 1,
+      "title": "Recap",
+      "description": "\n**In this lab you:**\n\n- Implemented Global logout using Auth0's OIDC Back-channel Logout. \n\nRecall that this feature is currently available to all enterprise tenants.\n\nYou've finished the end of the lab! You may now close and stop this Codespace."
+    }
+  ]
+}

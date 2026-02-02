@@ -1,0 +1,54 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "2: Examine federated logout",
+  "nextTour": "3 - Explore Backchannel Logout",
+  "steps": [
+    {
+      "file": "",
+      "line": 1,
+      "description": "## What you'll learn\n\nIn this scenario, we will federate authentication through an external identity provider (IdP), Google. Auth0 serves as the Identity Broker, which is a service that connects IdPs (e.g., Google) with service providers (e.g., your web application).\n\nIn this case, when a user logs in, there are three layers of sessions: the application session, the Auth0 session, and the external IdP session.\n![](https://cdn.auth0.com/website/oktalearning/diagrams/sessions-3pidp-diagram.png)\n\n\n\nWhen you log a user out of an external IdP, this is called federated logout. Auth0 supports federated logout by accepting a `federated` query string parameter to its logout endpoints. For a list of IdPs that support federated logout, visit [the docs](https://auth0.com/docs/authenticate/login/logout/log-users-out-of-idps#federated-logout-support).\n\nLogging the user out of their identity provider is not common practice, so think about the user experience before you use the `federated` query string parameter. There are also [limitations](https://auth0.com/docs/authenticate/login/logout/log-users-out-of-idps#alternative-logout-limitations) such as there being inconsistencies with how each IdP will treat the `returnTo` parameter that specifies the post-logout URI.\n\nIn this lab, we'll test federated logout using Google as an IdP.\n\n\n",
+      "selection": {
+        "start": {
+          "line": 12,
+          "character": 77
+        },
+        "end": {
+          "line": 13,
+          "character": 81
+        }
+      }
+    },
+    {
+      "title": "Configure connections",
+      "description": "## Configure connections\n\nWe're going to set up the application so it only uses Auth0 as an identity provider.\n\n1. From your Auth0 Management Dashboard, go to **Applications** > **Applications**.\n2. Select **Lab: Web App A**.\n3. Select the **Connections** tab.\n4. Disable all connections except for **Google** (google-oauth2)."
+    },
+    {
+      "title": "Register and sign in",
+      "description": "## Register and sign in\n1. From this workspace, go to the **PORTS** tab.\n1. Locate **Port 37500** (Web App A) and hover over its **Forwarded Address**.\n1. Select the globe icon to open the app in a new tab (we assume you are using the Chrome browser for this lab).\n1. From Web App A (Expenses), select the **Login** link.\n1. Select **Log in with Google** and log in with an existing Google account.\n> You are now signed in!"
+    },
+    {
+      "title": "Log out of the app using the federated parameter",
+      "description": "## Log out of the app using the federated parameter\n\nNow we'll test federated logout using the Auth0 alternative logout endpoint.\n\n1. Select [this link]((command:codetour.sendTextToTerminal?[\"bash print_federated.sh\"]) to print our your logout URI to the terminal below.\n1. Copy and paste this link into your browser tab.\n1. Pause and observe the user experience. Is the `returnTo` parameter handled as expected? What is different?\n\n\n> You may be surprised to see that Google, as an IdP, did not handle the redirect URI passed to the `returnTo` parameter as expected. You likely expected to be redirected to the root page of your app as you previously experienced in the previous scenario. How IdPs handle the `returnTo` parameter vary from IdP to IdP. Recall that logging your users out of the external IdPs is not a common use case. For example, an end user will likely be very surprised that they have been logged out of all Google services after logging out of your application.\n"
+    },
+    {
+      "title": "Perform a network trace of logout",
+      "description": "## Perform a network trace of logout\n1. Go to your web application. If you closed it, recall that you can go to the PORTS tab in your workspace and select the globe icon in the Forwarded Address collumn for Port 37500.\n1. Right click the body of the page and select **Inspect** to open Google Chrome Developer Tools.\n1. In the Google Chrome Developer Tools panel, select the **Network** tab.\n1. Login to your web app.\n1. Logout of your web app and notice that, after your browser sends a request to your app's `/logout` endpoint, there's a second request to   `https://{domain}.auth0.com/v2/logout`.\n> This is the Auth0 alternative logout endpoint. The `returnTo` query parameter specifies a URI where your user should land after logout. This URI must be specified under your application's **Allowed logout URIs** in your Auth0 tenant.\n1. Select **Login** again to confirm that you are now prompted to re-enter your credentials since the Auth0 session has been closed.",
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 8,
+          "character": 133
+        }
+      }
+    },
+    {
+      "file": "README.md",
+      "line": 1,
+      "title": "Recap",
+      "description": "\n**In this lab you:**\n\n- Examined the federated logout experience using Google as an IdP.\n"
+    }
+  ]
+}
