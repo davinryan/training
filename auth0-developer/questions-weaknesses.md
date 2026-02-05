@@ -10,3 +10,6 @@
     * Define Auth0 Tenants
   * SSO
     * Identity-provider-initiated SSO
+  * Organisations
+    * Create and Assign Roles to Auth0 Organization Members
+    * Define Auth0 Organizations
