@@ -9,6 +9,7 @@
     * Securing an Auth0 Tenant
     * Define Auth0 Tenants
   * SSO
+    * How to implement SSO
     * Identity-provider-initiated SSO
   * Organisations
     * Create and Assign Roles to Auth0 Organization Members
