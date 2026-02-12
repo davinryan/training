@@ -5,7 +5,7 @@
   * ANSWER: Error page displayed - misconfiguration
 * Weak areas
   * Tenants
-    * Provisioning an Auth0 Tenat
+    * Provisioning an Auth0 Tenant
     * Securing an Auth0 Tenant
     * Define Auth0 Tenants
   * SSO
@@ -14,3 +14,5 @@
   * Organisations
     * Create and Assign Roles to Auth0 Organization Members
     * Define Auth0 Organizations
+  * Implement Step-up Authentication in Auth0 for APIs (ISUAA)
+  * Explore Authenticator Assurance Levels in Auth0 (EAAL)
