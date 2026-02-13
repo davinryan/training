@@ -16,3 +16,4 @@
     * Define Auth0 Organizations
   * Implement Step-up Authentication in Auth0 for APIs (ISUAA)
   * Explore Authenticator Assurance Levels in Auth0 (EAAL)
+  * Suspicious IP Throttling
