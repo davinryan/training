@@ -17,3 +17,6 @@
   * Implement Step-up Authentication in Auth0 for APIs (ISUAA)
   * Explore Authenticator Assurance Levels in Auth0 (EAAL)
   * Suspicious IP Throttling
+  * Auth0 management API calls
+    * pagination
+    * rate limiting - how you get 429s - its very complicated
